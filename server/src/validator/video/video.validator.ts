@@ -33,7 +33,8 @@ export const videoUploadValidator = [
     .withMessage(`genre must be one of: ${GENRES.join(", ")}`),
 
   body("video").custom((_, {req}) => {
-    if (!req.files?.video?.[0]) throw new Error("video file is required");
+    if (!req.files?.video?.[0])
+       throw new Error("video file is required");
     return true;
   }),
 
