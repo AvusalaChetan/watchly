@@ -26,7 +26,7 @@ const VideoCard = ({
         <img
           src={thumbnailUrl}
           alt={title}
-          loading="lazy"
+           fetchPriority="high"
           className="size-full object-cover transition-transform duration-300 group-hover:scale-105 aspect-2/3"
         />
         <span className="absolute bottom-1 right-1 rounded bg-black/80 px-1.5 py-0.5 text-xs text-white">
@@ -35,9 +35,9 @@ const VideoCard = ({
       </div>
 
       <div className="space-y-1 p-2">
-        <h3 className="line-clamp-1 text-sm font-medium capitalize text-slate-900">
+        <h2 className="line-clamp-1 text-sm font-medium capitalize text-slate-900">
           {title}
-        </h3>
+        </h2>
         {genre && genre.length > 0 && (
           <p className="line-clamp-1 text-xs capitalize text-slate-500 ">
             <span className="font-bold">GENRES:</span> {genre.join(" · ")}

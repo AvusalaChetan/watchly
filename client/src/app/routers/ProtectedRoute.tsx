@@ -4,7 +4,7 @@ import {useAppSelector} from "../store/hooks/storeHookes";
 const ProtectedRoute = () => {
   const {user, accessToken, isLoading} = useAppSelector((state) => state.auth);
   const location = useLocation();
-  
+
   if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center">
@@ -12,10 +12,9 @@ const ProtectedRoute = () => {
       </div>
     );
   }
-
+   
   if (!user || !accessToken) {
-    return <Navigate to="/auth/login" state={{from: location}} replace 
-    />; 
+    return <Navigate to="/auth/login" state={{from: location}} replace />;
   }
 
   return (

@@ -15,7 +15,7 @@ app.use(cookieParser());
 app.use(morgan("dev"));
 
 app.use("/api/auth", authRoutes);
-app.use("/api/video", videoRoutes);
+app.use("/api/videos", videoRoutes);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   res.status(500).json({

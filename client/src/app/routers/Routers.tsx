@@ -10,6 +10,7 @@ import { api } from "../../config/axiosInstance";
 import {
   setAuthChecked,
   setCredentials,
+  setLoading,
 } from "../../feature/auth/state/auth/authSlice";
 import Login from "../../feature/auth/ui/pages/Login";
 import Register from "../../feature/auth/ui/pages/Register";
@@ -35,6 +36,7 @@ const Router = () => {
         }
       } finally {
         dispatch(setAuthChecked(true));
+         dispatch(setLoading(false));
       }
     };
 
@@ -68,8 +70,7 @@ const Router = () => {
           children: [
             {
               path: "",
-              index: true,
-              element: <Navigate to={"/home"} />,
+               element: <Navigate to={"/home"} />,
             },
             {
               path: "home",

@@ -1,5 +1,6 @@
 import {useInfiniteQuery, useQuery} from "@tanstack/react-query";
 import {api} from "../../../config/axiosInstance";
+import type {Video} from "../types/videoTypes";
 
 export const useVideos = () => {
   const {
@@ -13,7 +14,7 @@ export const useVideos = () => {
     queryKey: ["videos"],
     queryFn: async ({pageParam}) =>
       (
-        await api.get("/video", {
+        await api.get("/videos", {
           params: {cursor: pageParam, limit: 10},
         })
       ).data.data,
@@ -22,7 +23,7 @@ export const useVideos = () => {
     getNextPageParam: (lastPage) => lastPage.nextCursor ?? undefined,
   });
 
-  const videos = data?.pages.flatMap((page) => page.videos) ?? [];
+  const videos: Video[] = data?.pages.flatMap((page) => page.videos) ?? [];
 
   return {
     videos,
@@ -34,12 +35,22 @@ export const useVideos = () => {
   };
 };
 
-export const useVideo = (videoId?: string) => {
+
+
+export const useVideo = (
+  videoId?: string,
+): {
+  video: Video;
+  isLoading: boolean;
+  isError: boolean;
+  error: Error | null;
+} => {
+  
   const {data, isLoading, isError, error} = useQuery({
     queryKey: ["video", videoId],
     enabled: !!videoId,
     retry: false,
-    queryFn: async () => (await api.get(`/video/${videoId}`)).data.data,
+    queryFn: async () => (await api.get(`/videos/${videoId}`)).data.data,
   });
 
   return {
