@@ -83,7 +83,7 @@ const getVideoById = tryCatch(async (req: Request, res: Response) => {
     });
   }
 
-  const video = await videoModel.findById(id);
+  const video = await videoModel.findById(id).lean();
 
   if (!video) {
     return res.status(404).json({

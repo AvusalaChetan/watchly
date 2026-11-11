@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { Link, useParams } from "react-router";
-import { formatDuration } from "../../../../shared/utils/formatDuration";
-import { useVideo } from "../../hooks/videoHook";
-import type { Genre } from "../../types/videoTypes";
+import {useState} from "react";
+import {Link, useParams} from "react-router";
+import {formatDuration} from "../../../../shared/utils/formatDuration";
+import {useVideo} from "../../hooks/videoHook";
+import type {Genre} from "../../types/videoTypes";
 
 const WatchPage = () => {
-  const {id: videoId } = useParams();
-  const { video, isLoading, isError } = useVideo(videoId);
+  const {id: videoId} = useParams();
+  const {video, isLoading, isError} = useVideo(videoId);
   const [expanded, setExpanded] = useState(false);
- 
+
   if (isLoading) {
     return (
       <div className="mx-auto w-full max-w-6xl animate-pulse px-4 py-4">
@@ -23,7 +23,9 @@ const WatchPage = () => {
     return (
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-3 px-4 py-16 text-center">
         <h1 className="text-xl font-semibold">Video not found</h1>
-        <p className="text-sm text-slate-500">It may have been removed, or the link is wrong.</p>
+        <p className="text-sm text-slate-500">
+          It may have been removed, or the link is wrong.
+        </p>
         <Link to="/home" className="text-sm font-medium underline">
           Back to home
         </Link>
@@ -32,23 +34,24 @@ const WatchPage = () => {
   }
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-4">
-      <div className="aspect-video w-full overflow-hidden rounded-lg bg-black">
-        <video
-          src={video.videoUrl}
-          poster={video.thumbnailUrl}
-          controls
-          playsInline
-          className="size-full"
-        />
-      </div>
-
+    <div className="mx-auto w-[80%] p-2  h-full">
       <div className="mt-4 space-y-3">
-        <h1 className="text-xl font-semibold capitalize md:text-2xl">{video.title}</h1>
+        <h1 className="text-xl font-semibold capitalize md:text-2xl">
+          {video.title}
+        </h1>
+        <div className="aspect-video w-full overflow-hidden rounded-lg bg-black   flex items-center justify-center h-[80%]">
+          <video
+            src={video.videoUrl}
+            poster={video.thumbnailUrl}
+            controls
+            playsInline
+            className="size-full    "
+          />
+        </div>
 
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-slate-500">
           <span>{formatDuration(video.duration)}</span>
-          <span aria-hidden>·</span>
+          <span aria-hidden>-</span>
           <span>
             {new Date(video.createdAt).toLocaleDateString(undefined, {
               year: "numeric",
@@ -57,8 +60,11 @@ const WatchPage = () => {
             })}
           </span>
           <div className="flex flex-wrap gap-2">
-            {video.genre.map((g:Genre) => (
-              <span key={g} className="rounded-full border border-slate-300 px-3 py-0.5 text-xs capitalize text-slate-700">
+            {video?.genre?.map((g: Genre) => (
+              <span
+                key={g}
+                className="rounded-full border border-slate-300 px-3 py-0.5 text-xs capitalize text-slate-700"
+              >
                 {g}
               </span>
             ))}
@@ -66,7 +72,9 @@ const WatchPage = () => {
         </div>
 
         <div className="rounded-lg border border-slate-200 p-3">
-          <p className={`text-sm text-slate-700 ${expanded ? "" : "line-clamp-3"}`}>
+          <p
+            className={`text-sm text-slate-700 ${expanded ? "" : "line-clamp-3"}`}
+          >
             {video.description}
           </p>
           <button

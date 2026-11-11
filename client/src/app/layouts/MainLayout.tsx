@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar";
 const MainLayout = () => {
 
   return (
-    <main className="h-full w-full  overflow-x-hidden">
+    <main className="h-screen w-full  overflow-x-hidden">
       <Navbar />
       <div className="h-full px-4 ">
 
