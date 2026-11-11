@@ -1,7 +1,7 @@
 import {useInfiniteQuery, useQuery} from "@tanstack/react-query";
 import {api} from "../../../config/axiosInstance";
-import type {Video} from "../types/videoTypes";
-
+import type { Video } from "../../../shared/types/videos/video.types";
+ 
 export const useVideos = () => {
   const {
     data,

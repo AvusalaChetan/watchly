@@ -1,6 +1,6 @@
 import {Link} from "react-router";
-import {type Genre} from "../../types/videoTypes";
-import {formatDuration} from '../../../../shared/utils/formatDuration'
+ import {formatDuration} from "../../../../shared/utils/formatDuration";
+import type { Genre } from "../../../../shared/types/videos/video.types";
 type VideoCardProps = {
   id: string;
   title: string;
@@ -8,7 +8,6 @@ type VideoCardProps = {
   duration: number;
   genre?: Genre[];
 };
- 
 
 const VideoCard = ({
   id,
@@ -26,7 +25,7 @@ const VideoCard = ({
         <img
           src={thumbnailUrl}
           alt={title}
-           fetchPriority="high"
+          fetchPriority="high"
           className="size-full object-cover transition-transform duration-300 group-hover:scale-105 aspect-2/3"
         />
         <span className="absolute bottom-1 right-1 rounded bg-black/80 px-1.5 py-0.5 text-xs text-white">
@@ -40,7 +39,7 @@ const VideoCard = ({
         </h2>
         {genre && genre.length > 0 && (
           <p className="line-clamp-1 text-xs capitalize text-slate-500 ">
-            <span className="font-bold">GENRES:</span> {genre.join(" · ")}
+            <span className="font-bold">GENRES:</span> {genre.join(", ")}
           </p>
         )}
       </div>

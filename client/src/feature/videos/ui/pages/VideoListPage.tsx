@@ -1,8 +1,8 @@
 import {useEffect} from "react";
 import Button from "../../../../shared/ui/components/Button";
 import {useVideos} from "../../hooks/videoHook";
-import type {Video} from "../../types/videoTypes";
-import VideoCard from "../components/VideoCard";
+ import VideoCard from "../components/VideoCard";
+import type { Video } from "../../../../shared/types/videos/video.types";
 
 const VideoListPage = () => {
   const {
