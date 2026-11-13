@@ -33,7 +33,7 @@ const Router = () => {
     const hydration = async () => {
       try {
         const res = await api.post("/auth/refresh-token");
-        console.log(res.data.data)
+        
         dispatch(setCredentials(res.data?.data));
       } catch (error) {
         if (axios.isAxiosError(error)) {

@@ -11,6 +11,7 @@ import Button from "../../../../shared/ui/components/Button";
 import { formatDuration } from "../../../../shared/utils/formatDuration";
 import { useVideos } from "../../../videos";
 import { useDeleteVideo } from "../../hooks/hook";
+import CircleLoading from "../../../../shared/ui/components/Loading";
 
 const stats = [
   { label: "Total videos", value: "41", icon: LuFilm },
@@ -71,7 +72,7 @@ const Dashboard = () => {
         ) : (
           <ul className="divide-y divide-slate-200">
             {recent.map((v) => (
-              <li key={v._id}>
+              <li key={v._id} className="flex items-center justify-between gap-3 p-3">
                <Link to={`/video/watch/${v._id}`}  className="flex items-center gap-3 p-3">
                
                 <img
@@ -92,7 +93,9 @@ const Dashboard = () => {
                     {new Date(v.createdAt).toLocaleDateString()}
                   </p>
                 </div>
-                <div className="flex shrink-0 gap-1">
+                 
+               </Link>
+                  <div className="flex shrink-0 gap-1">
                   <Button variant="icon" aria-label={`Edit ${v.title}`}>
                     <LuPencil size={18} />
                   </Button>
@@ -102,13 +105,12 @@ const Dashboard = () => {
                     onClick={() => deleteVideo(v._id)}
                   >
                     {deletingVideoId === v._id ? (
-                      <span>Deleting...</span>
+                      <span><CircleLoading/></span>
                     ) : (
                       <LuTrash2 size={18} />
                     )}
                   </Button>
                 </div>
-               </Link>
               </li>
             ))}
           </ul>
