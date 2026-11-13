@@ -30,7 +30,6 @@ router.post(
 
 router.get("/", videoList);
 router.get("/:id", getVideoById);
-
 router.patch("/:id",authenticatedAdmin, updateVideo);
 router.delete("/:id",authenticatedAdmin, deleteVideo);
 

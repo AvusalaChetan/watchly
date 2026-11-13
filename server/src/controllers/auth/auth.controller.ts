@@ -191,6 +191,7 @@ const refreshToken = tryCatch(async (req: Request, res: Response) => {
         email: user.email,
         name: user.username,
         id: user._id,
+        role:user.role
       },
       accessToken,
     },

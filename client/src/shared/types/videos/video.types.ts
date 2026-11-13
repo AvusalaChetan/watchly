@@ -28,3 +28,14 @@ export type VideoListResponse = {
   videos: Video[];
   nextCursor: string | null;
 };
+
+
+export type UploadFormData = {
+  title: string;
+  description: string;
+  genre: Genre[];
+  video: FileList;
+  thumbnail: FileList;
+};
+
+

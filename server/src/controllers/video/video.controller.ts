@@ -1,8 +1,8 @@
-import videoModel, {type IVideo} from "../../models/video.model.js";
+import type { Request, Response } from "express";
+import videoModel from "../../models/video.model.js";
 import { deleteFromCloudinary } from "../../services/delete.service.js";
-import {uploadToCloudinary} from "../../services/upload.services.js";
-import {tryCatch} from "../../utils/tryCatch.js";
-import type {Request, Response} from "express";
+import { uploadToCloudinary } from "../../services/upload.services.js";
+import { tryCatch } from "../../utils/tryCatch.js";
 
 const uploadVideo = tryCatch(async (req: Request, res: Response) => {
   const {title, description, genre} = req.body;
@@ -10,7 +10,7 @@ const uploadVideo = tryCatch(async (req: Request, res: Response) => {
 
   const videoFile: Express.Multer.File | undefined = files.video?.[0];
   const thumbnailFile = files.thumbnail?.[0];
-  
+  console.log(videoFile,thumbnailFile)
   if (!videoFile || !thumbnailFile) {
     return res.status(400).json({message: "Video and thumbnail are required"});
   }
@@ -161,4 +161,4 @@ const deleteVideo = tryCatch(async (req: Request, res: Response) => {
   });
 });
 
-export {uploadVideo, videoList, getVideoById, updateVideo, deleteVideo};
+export { deleteVideo, getVideoById, updateVideo, uploadVideo, videoList };

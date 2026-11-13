@@ -1,12 +1,12 @@
 import axios from "axios";
-import { useEffect } from "react";
+import {useEffect} from "react";
 import {
   createBrowserRouter,
   Navigate,
   redirect,
   RouterProvider,
 } from "react-router";
-import { api } from "../../config/axiosInstance";
+import {api} from "../../config/axiosInstance";
 import {
   setAuthChecked,
   setCredentials,
@@ -19,8 +19,12 @@ import WatchPage from "../../feature/videos/ui/pages/WatchPage";
 import HomePage from "../../shared/ui/pages/HomePage";
 import AuthLayout from "../layouts/AuthLayout";
 import MainLayout from "../layouts/MainLayout";
-import { useAppDispatch } from "../store/hooks/storeHookes";
+import {useAppDispatch} from "../store/hooks/storeHookes";
 import ProtectedRoute from "./ProtectedRoute";
+import AdminRoutes from "./AdminRoute";
+import AdminLayout from "../layouts/AdminLayout";
+import Dashboard from "../../feature/admin/ui/pages/Dashboard";
+import UploadVideo from "../../feature/admin/ui/pages/UploadVideo";
 
 const Router = () => {
   const dispatch = useAppDispatch();
@@ -29,6 +33,7 @@ const Router = () => {
     const hydration = async () => {
       try {
         const res = await api.post("/auth/refresh-token");
+        console.log(res.data.data)
         dispatch(setCredentials(res.data?.data));
       } catch (error) {
         if (axios.isAxiosError(error)) {
@@ -36,7 +41,7 @@ const Router = () => {
         }
       } finally {
         dispatch(setAuthChecked(true));
-         dispatch(setLoading(false));
+        dispatch(setLoading(false));
       }
     };
 
@@ -70,7 +75,7 @@ const Router = () => {
           children: [
             {
               path: "",
-               element: <Navigate to={"/home"} />,
+              element: <Navigate to={"/home"} />,
             },
             {
               path: "home",
@@ -83,8 +88,32 @@ const Router = () => {
               element: <VideoListPage />,
             },
             {
-              path:'video/watch/:id',
-              element:<WatchPage/>
+              path: "video/watch/:id",
+              element: <WatchPage />,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      path: "/admin",
+      element: <AdminRoutes />,
+      children: [
+        {
+          path: "",
+          element: <AdminLayout />,
+          children: [
+            {
+              path: "",
+              element: <Navigate to={"/admin/dashboard"} />,
+            },
+            {
+              path: "dashboard",
+              element: <Dashboard />,
+            },
+            {
+              path:'upload',
+              element:<UploadVideo/>
             }
           ],
         },

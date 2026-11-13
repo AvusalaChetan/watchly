@@ -1,8 +1,8 @@
-import {useState} from "react";
-import {LuMenu, LuSearch, LuUsers} from "react-icons/lu";
+import { useState } from "react";
+import { LuMenu, LuSearch } from "react-icons/lu";
 import Button from "../../shared/ui/components/Button";
 import Logo from "../../shared/ui/Logo";
-import {useAppSelector} from "../store/hooks/storeHookes";
+import { useAppSelector } from "../store/hooks/storeHookes";
 
 const Navbar = () => {
   const {user} = useAppSelector((s) => s.auth);
@@ -43,9 +43,7 @@ const Navbar = () => {
               <LuSearch size={22} />
             </Button>
           </div>
-          <Button variant="icon" aria-label="Users">
-            <LuUsers size={22} />
-          </Button>
+        
 
           <Button variant="avatar" aria-label="Open profile menu">
             {user?.name?.charAt(0).toUpperCase() ?? "?"}

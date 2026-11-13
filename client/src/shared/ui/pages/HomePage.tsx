@@ -1,6 +1,5 @@
 import VideoCard from "../../../feature/videos/ui/components/VideoCard";
-import VideoListPage from "../../../feature/videos/ui/pages/VideoListPage";
-
+ 
 const HomePage = () => {
   const arrImg = [
     "https://imgs.search.brave.com/Z8xMley-KTwR3bW7iO_jSoNMNeu_XNpJV5XZgEnb3PQ/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly80a3dh/bGxwYXBlcnMuY29t/L2ltYWdlcy93YWxs/cy90aHVtYnMvMjc1/ODEuanBn",

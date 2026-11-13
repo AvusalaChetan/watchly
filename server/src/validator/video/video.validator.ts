@@ -1,6 +1,7 @@
 import {body, validationResult} from "express-validator";
 import {GENRES} from "../../models/video.model.js";
 import type {Request, Response, NextFunction} from "express";
+import { error } from "console";
 
 export const videoUploadValidator = [
   body("title")
@@ -46,6 +47,7 @@ export const videoUploadValidator = [
 
   (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
+    console.log(errors)
     if (!errors.isEmpty()) {
       return res.status(400).json({
         message: "Invalid Request",

@@ -8,7 +8,6 @@ const VideoListPage = () => {
   const {
     videos,
     isLoading,
-
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,

@@ -1,14 +1,18 @@
-import { Navigate, Outlet } from "react-router";
+import {Navigate, Outlet} from "react-router";
 import Header from "../components/Header";
-import { useAppSelector } from "../store/hooks/storeHookes";
+import {useAppSelector} from "../store/hooks/storeHookes";
 import Footer from "../components/Footer";
 
 const AuthLayout = () => {
   const user = useAppSelector((state) => state.auth.user);
   const accessToken = useAppSelector((state) => state.auth.accessToken);
- 
-   if (user && accessToken) {
-    return <Navigate to={'/home'} replace/>
+
+  if (user && accessToken) {
+    return user.role === "admin" ? (
+      <Navigate to={"/admin"} />
+    ) : (
+      <Navigate to={"/home"} />
+    );
   }
 
   return (
@@ -18,7 +22,7 @@ const AuthLayout = () => {
         <div>
           <Outlet />
         </div>
-        <Footer/>
+        <Footer />
       </main>
     </>
   );
