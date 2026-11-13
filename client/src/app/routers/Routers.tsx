@@ -24,12 +24,13 @@ import ProtectedRoute from "./ProtectedRoute";
 import AdminRoutes from "./AdminRoute";
 import AdminLayout from "../layouts/AdminLayout";
 import Dashboard from "../../feature/admin/ui/pages/Dashboard";
-import UploadVideo from "../../feature/admin/ui/pages/UploadVideo";
-
+import UploadVideo from "../../feature/videos/ui/pages/UploadVideo";
+ 
 const Router = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+     console.log("HYDRATION MOUNTED");
     const hydration = async () => {
       try {
         const res = await api.post("/auth/refresh-token");
@@ -47,7 +48,9 @@ const Router = () => {
 
     hydration();
 
-    return () => {};
+    return () => {
+       console.log("HYDRATION unMOUNTED");
+    };
   }, [dispatch]);
 
   const routers = createBrowserRouter([

@@ -9,9 +9,8 @@ import {
 import { Link } from "react-router";
 import Button from "../../../../shared/ui/components/Button";
 import { formatDuration } from "../../../../shared/utils/formatDuration";
-import { useVideos } from "../../../videos";
-import { useDeleteVideo } from "../../hooks/hook";
-import CircleLoading from "../../../../shared/ui/components/Loading";
+import { useDeleteVideo, useVideos } from "../../../videos/index";
+ import CircleLoading from "../../../../shared/ui/components/Loading";
 
 const stats = [
   { label: "Total videos", value: "41", icon: LuFilm },

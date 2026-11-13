@@ -1,17 +1,12 @@
 import {useEffect} from "react";
 import Button from "../../../../shared/ui/components/Button";
 import {useVideos} from "../../hooks/videoHook";
- import VideoCard from "../components/VideoCard";
-import type { Video } from "../../../../shared/types/videos/video.types";
+import VideoCard from "../components/VideoCard";
+import type {Video} from "../../types/video.types";
 
 const VideoListPage = () => {
-  const {
-    videos,
-    isLoading,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } = useVideos();
+  const {videos, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage} =
+    useVideos();
 
   useEffect(() => {
     const onScroll = () => {

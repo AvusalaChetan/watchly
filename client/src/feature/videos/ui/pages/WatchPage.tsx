@@ -2,8 +2,8 @@ import {useState} from "react";
 import {Link, useParams} from "react-router";
 import {formatDuration} from "../../../../shared/utils/formatDuration";
 import {useVideo} from "../../hooks/videoHook";
-import type { Genre } from "../../../../shared/types/videos/video.types";
- 
+import type {Genre} from "../../types/video.types";
+
 const WatchPage = () => {
   const {id: videoId} = useParams();
   const {video, isLoading, isError} = useVideo(videoId);

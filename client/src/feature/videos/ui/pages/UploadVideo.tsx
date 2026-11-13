@@ -1,12 +1,8 @@
-import { useForm } from "react-hook-form";
-import {
-  GENRES,
-  type Genre,
-  type UploadFormData,
-} from "../../../../shared/types/videos/video.types";
+import {useForm} from "react-hook-form";
+import {GENRES, type Genre, type UploadFormData} from "../../types/video.types";
 import Button from "../../../../shared/ui/components/Button";
-import { useUpload } from "../../hooks/hook";
-
+import { useUploadVideo } from "../../hooks/videoHook";
+ 
 const inputClass =
   "w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-slate-500";
 
@@ -30,16 +26,16 @@ const UploadVideo = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: {errors, isSubmitting},
     reset,
   } = useForm<UploadFormData>();
 
-  const { upload } = useUpload();
-  
-   const onSubmit = async (data:UploadFormData)=>{
-    await upload(data)
-    reset()
-   }
+  const {upload} = useUploadVideo();
+
+  const onSubmit = async (data: UploadFormData) => {
+    await upload(data);
+    reset();
+  };
 
   return (
     <div className="mx-auto w-full max-w-2xl px-4 py-6">
@@ -59,7 +55,7 @@ const UploadVideo = () => {
             className={inputClass}
             {...register("title", {
               required: "Title is required",
-              minLength: { value: 3, message: "At least 3 characters" },
+              minLength: {value: 3, message: "At least 3 characters"},
             })}
           />
         </Field>
@@ -71,8 +67,8 @@ const UploadVideo = () => {
             className={inputClass}
             {...register("description", {
               required: "Description is required",
-              minLength: { value: 20, message: "At least 20 characters" },
-              maxLength: { value: 500, message: "At most 500 characters" },
+              minLength: {value: 20, message: "At least 20 characters"},
+              maxLength: {value: 500, message: "At most 500 characters"},
             })}
           />
         </Field>
@@ -104,7 +100,7 @@ const UploadVideo = () => {
               type="file"
               accept="video/*"
               className={inputClass}
-              {...register("video", { required: "Video file is required" })}
+              {...register("video", {required: "Video file is required"})}
             />
           </Field>
 
@@ -113,7 +109,7 @@ const UploadVideo = () => {
               type="file"
               accept="image/*"
               className={inputClass}
-              {...register("thumbnail", { required: "Thumbnail is required" })}
+              {...register("thumbnail", {required: "Thumbnail is required"})}
             />
           </Field>
         </div>
