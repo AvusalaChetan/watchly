@@ -30,7 +30,8 @@ export type VideoListResponse = {
 };
 
 
-export type UploadFormData = {
+
+export type FormDataTypes = {
   title: string;
   description: string;
   genre: Genre[];

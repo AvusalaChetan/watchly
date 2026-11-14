@@ -1,17 +1,13 @@
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { toast } from "react-toastify";
-import { api } from "../../../config/axiosInstance";
-import { queryClient } from "../../../main";
-import type { Video } from "../types/video.types";
-import type { InfiniteData } from "@tanstack/react-query";
-import { isAxiosError } from "axios";
-import { useState } from "react";
- 
-import type {
-  UploadFormData,
-  VideoListResponse,
-} from "../../videos/types/video.types";
+import type {InfiniteData} from "@tanstack/react-query";
+import {useInfiniteQuery, useQuery} from "@tanstack/react-query";
+import {isAxiosError} from "axios";
+import {useState} from "react";
+import {toast} from "react-toastify";
+import {api} from "../../../config/axiosInstance";
+import {queryClient} from "../../../main";
+import type {FormDataTypes, Video} from "../types/video.types";
 
+import type {VideoListResponse} from "../../videos/types/video.types";
 
 export const useVideos = () => {
   const {
@@ -70,7 +66,7 @@ export const useVideo = (
 };
 
 export const useUploadVideo = () => {
-  const upload = async (data: UploadFormData) => {
+  const upload = async (data: FormDataTypes) => {
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("description", data.description);
@@ -131,4 +127,21 @@ export const useDeleteVideo = () => {
 
   return {deleteVideo, isLoading, deletingVideoId};
 };
-  
+
+export const useUpdateVideo = () => {
+  const updateVideo = async (data: FormDataTypes, id: string) => {
+    try {
+      const res = await api.patch(`/videos/${id}`, data);
+    
+      return res?.data;
+    } catch (error) {
+      if (isAxiosError(error)) {
+        toast.error(error.response?.data?.message);
+      } else {
+        toast.error((error as Error).message);
+      }
+    }
+  };
+
+  return {updateVideo};
+};

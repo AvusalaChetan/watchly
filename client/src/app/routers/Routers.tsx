@@ -1,57 +1,32 @@
-import axios from "axios";
-import {useEffect} from "react";
+import { useEffect } from "react";
 import {
   createBrowserRouter,
   Navigate,
-  redirect,
-  RouterProvider,
+  RouterProvider
 } from "react-router";
-import {api} from "../../config/axiosInstance";
-import {
-  setAuthChecked,
-  setCredentials,
-  setLoading,
-} from "../../feature/auth/state/auth/authSlice";
+import Dashboard from "../../feature/admin/ui/pages/Dashboard";
+import { refreshAccessToken } from "../../feature/auth/state/auth/authAction";
 import Login from "../../feature/auth/ui/pages/Login";
 import Register from "../../feature/auth/ui/pages/Register";
+import UpdateVideo from "../../feature/videos/ui/pages/UpdateVideo";
+import UploadVideo from "../../feature/videos/ui/pages/UploadVideo";
 import VideoListPage from "../../feature/videos/ui/pages/VideoListPage";
 import WatchPage from "../../feature/videos/ui/pages/WatchPage";
 import HomePage from "../../shared/ui/pages/HomePage";
+import AdminLayout from "../layouts/AdminLayout";
 import AuthLayout from "../layouts/AuthLayout";
 import MainLayout from "../layouts/MainLayout";
-import {useAppDispatch} from "../store/hooks/storeHookes";
-import ProtectedRoute from "./ProtectedRoute";
+import { useAppDispatch } from "../store/hooks/storeHookes";
 import AdminRoutes from "./AdminRoute";
-import AdminLayout from "../layouts/AdminLayout";
-import Dashboard from "../../feature/admin/ui/pages/Dashboard";
-import UploadVideo from "../../feature/videos/ui/pages/UploadVideo";
- 
+import ProtectedRoute from "./ProtectedRoute";
+
 const Router = () => {
   const dispatch = useAppDispatch();
+ 
 
   useEffect(() => {
-     console.log("HYDRATION MOUNTED");
-    const hydration = async () => {
-      try {
-        const res = await api.post("/auth/refresh-token");
-        
-        dispatch(setCredentials(res.data?.data));
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          redirect("/auth/login");
-        }
-      } finally {
-        dispatch(setAuthChecked(true));
-        dispatch(setLoading(false));
-      }
-    };
-
-    hydration();
-
-    return () => {
-       console.log("HYDRATION unMOUNTED");
-    };
-  }, [dispatch]);
+  dispatch(refreshAccessToken());
+}, [dispatch]);
 
   const routers = createBrowserRouter([
     {
@@ -115,9 +90,13 @@ const Router = () => {
               element: <Dashboard />,
             },
             {
-              path:'upload',
-              element:<UploadVideo/>
-            }
+              path: "upload",
+              element: <UploadVideo />,
+            },
+            {
+              path: "update/:id",
+              element: <UpdateVideo />,
+            },
           ],
         },
       ],

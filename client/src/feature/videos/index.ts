@@ -9,5 +9,5 @@ export type {
   Video,
   Genre,
   VideoListResponse,
-  UploadFormData,
+  FormDataTypes,
 } from "./types/video.types";

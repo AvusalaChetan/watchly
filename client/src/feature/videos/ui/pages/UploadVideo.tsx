@@ -1,26 +1,7 @@
 import {useForm} from "react-hook-form";
-import {GENRES, type Genre, type UploadFormData} from "../../types/video.types";
-import Button from "../../../../shared/ui/components/Button";
-import { useUploadVideo } from "../../hooks/videoHook";
- 
-const inputClass =
-  "w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-slate-500";
-
-const Field = ({
-  label,
-  error,
-  children,
-}: {
-  label: string;
-  error?: string;
-  children: React.ReactNode;
-}) => (
-  <div className="space-y-1">
-    <label className="text-sm font-medium">{label}</label>
-    {children}
-    {error && <p className="text-xs text-red-600">{error}</p>}
-  </div>
-);
+import {useUploadVideo} from "../../hooks/videoHook";
+import {type FormDataTypes} from "../../types/video.types";
+import VideoForm from "../components/VideoForm";
 
 const UploadVideo = () => {
   const {
@@ -28,11 +9,11 @@ const UploadVideo = () => {
     handleSubmit,
     formState: {errors, isSubmitting},
     reset,
-  } = useForm<UploadFormData>();
+  } = useForm<FormDataTypes>();
 
   const {upload} = useUploadVideo();
 
-  const onSubmit = async (data: UploadFormData) => {
+  const onSubmit = async (data: FormDataTypes): Promise<void> => {
     await upload(data);
     reset();
   };
@@ -44,82 +25,11 @@ const UploadVideo = () => {
         Add a new video to the library
       </p>
 
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="space-y-5 rounded-lg border border-slate-200 p-4 md:p-6"
-      >
-        <Field label="Title" error={errors.title?.message}>
-          <input
-            type="text"
-            placeholder="Enter a title"
-            className={inputClass}
-            {...register("title", {
-              required: "Title is required",
-              minLength: {value: 3, message: "At least 3 characters"},
-            })}
-          />
-        </Field>
-
-        <Field label="Description" error={errors.description?.message}>
-          <textarea
-            rows={4}
-            placeholder="What is this video about?"
-            className={inputClass}
-            {...register("description", {
-              required: "Description is required",
-              minLength: {value: 20, message: "At least 20 characters"},
-              maxLength: {value: 500, message: "At most 500 characters"},
-            })}
-          />
-        </Field>
-
-        <Field label="Genres" error={errors.genre?.message}>
-          <div className="flex flex-wrap gap-2">
-            {GENRES.map((g: Genre) => (
-              <label
-                key={g}
-                className="flex cursor-pointer items-center gap-2 rounded-full border border-slate-300 px-3 py-1 text-sm capitalize has-checked:border-slate-900 has-checked:bg-slate-900 has-checked:text-white"
-              >
-                <input
-                  type="checkbox"
-                  value={g}
-                  className="sr-only"
-                  {...register("genre", {
-                    required: "Select at least one genre",
-                  })}
-                />
-                {g}
-              </label>
-            ))}
-          </div>
-        </Field>
-
-        <div className="grid gap-5 sm:grid-cols-2">
-          <Field label="Video file" error={errors.video?.message}>
-            <input
-              type="file"
-              accept="video/*"
-              className={inputClass}
-              {...register("video", {required: "Video file is required"})}
-            />
-          </Field>
-
-          <Field label="Thumbnail" error={errors.thumbnail?.message}>
-            <input
-              type="file"
-              accept="image/*"
-              className={inputClass}
-              {...register("thumbnail", {required: "Thumbnail is required"})}
-            />
-          </Field>
-        </div>
-
-        <div className="flex justify-end">
-          <Button type="submit" variant="primary" disabled={isSubmitting}>
-            {isSubmitting ? "Uploading..." : "Upload video"}
-          </Button>
-        </div>
-      </form>
+      <VideoForm
+        onSubmit={onSubmit}
+        mode='create'
+        form={{register, handleSubmit, errors, isSubmitting}}
+      />
     </div>
   );
 };
