@@ -10,6 +10,7 @@ import Field from "./Field";
 
 import type { FormDataTypes } from "../../types/video.types";
 import { memo } from "react";
+import CircleLoading from "../../../../shared/ui/components/Loading";
 
 interface VideoFormProps {
   onSubmit: SubmitHandler<FormDataTypes>;
@@ -110,8 +111,7 @@ const VideoForm = ({onSubmit, form, mode}: VideoFormProps) => {
           className={isSubmitting ? "bg-gray-400" : ""}
         >
           {isSubmitting ? (
-            // <CircleLoading />
-            'loading'
+            <CircleLoading />
           ) : mode === "create" ? (
             "upload"
           ) : (

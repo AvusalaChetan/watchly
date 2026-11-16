@@ -6,7 +6,7 @@ export const uploadToCloudinary = async (
   resourceType: "video" | "image",
   folder: string,
 ) => {
-  console.log(await cloudinary.api.ping());
+  
   try {
     const fileUpload = await cloudinary.uploader.upload(filePath, {
       resource_type: resourceType,
@@ -17,6 +17,8 @@ export const uploadToCloudinary = async (
     console.error("Error uploading to Cloudinary:", error);
     throw new Error("Failed to upload file to Cloudinary");
   } finally {
-    await fs.unlink(filePath).catch((e) => console.error("unlink failed:", e));
+    await fs.unlink(filePath)
+    .then(()=>console.log('file is unlinked'))
+    .catch((e) => console.error("unlink failed:", e));
   }
 };

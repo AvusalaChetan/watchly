@@ -10,8 +10,7 @@ const uploadVideo = tryCatch(async (req: Request, res: Response) => {
 
   const videoFile: Express.Multer.File | undefined = files.video?.[0];
   const thumbnailFile = files.thumbnail?.[0];
-  console.log(videoFile,thumbnailFile)
-  if (!videoFile || !thumbnailFile) {
+   if (!videoFile || !thumbnailFile) {
     return res.status(400).json({message: "Video and thumbnail are required"});
   }
   
@@ -19,8 +18,7 @@ const uploadVideo = tryCatch(async (req: Request, res: Response) => {
     uploadToCloudinary(videoFile.path, "video", "streaming-app/videos"),
     uploadToCloudinary(thumbnailFile.path, "image", "streaming-app/thumbnails"),
   ]);
-  console.log("videoRes", videoRes);
- 
+  
   const video = await videoModel.create({
     title,
     description,
@@ -150,6 +148,8 @@ const deleteVideo = tryCatch(async (req: Request, res: Response) => {
       success: false,
     });
   }
+
+  
   await deleteFromCloudinary(video?.videoPublicId,'video')
   await deleteFromCloudinary(video?.thumbnailPublicId,'image')
 

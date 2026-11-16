@@ -6,6 +6,7 @@ export const GENRES = [
   "romance",
   "thriller",
   "sci-fi",
+  "documentary"
 ] as const;
 
 export type Genre = (typeof GENRES)[number];

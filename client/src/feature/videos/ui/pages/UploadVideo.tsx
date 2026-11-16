@@ -2,6 +2,7 @@ import {useForm} from "react-hook-form";
 import {useUploadVideo} from "../../hooks/videoHook";
 import {type FormDataTypes} from "../../types/video.types";
 import VideoForm from "../components/VideoForm";
+import { useNavigate } from "react-router";
 
 const UploadVideo = () => {
   const {
@@ -12,10 +13,12 @@ const UploadVideo = () => {
   } = useForm<FormDataTypes>();
 
   const {upload} = useUploadVideo();
+  const navigate = useNavigate()
 
   const onSubmit = async (data: FormDataTypes): Promise<void> => {
     await upload(data);
     reset();
+    navigate('/admin/dashboard')
   };
 
   return (

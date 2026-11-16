@@ -9,7 +9,7 @@ const Login = () => {
     register,
     handleSubmit,
     watch,
-    formState: {errors},
+    formState: {errors, isSubmitting},
   } = useForm<LoginData>();
 
   const password = watch("password");
@@ -90,8 +90,9 @@ const Login = () => {
           <button
             type="submit"
             className="w-full rounded-lg bg-indigo-600 px-4 py-2.5 font-semibold text-white transition hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-300"
+            disabled={isSubmitting}
           >
-            login
+            {isSubmitting?"...":"login"}
           </button>
         </form>
         <p className="mt-6 text-center text-sm text-slate-500">
