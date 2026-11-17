@@ -1,19 +1,17 @@
-import { useState } from "react";
-import { BiLeftArrow } from "react-icons/bi";
-import {
-  LuLogOut,
-  LuMenu,
-  LuSearch
-} from "react-icons/lu";
-import { NavLink } from "react-router";
+import {useState} from "react";
+import {BiLeftArrow} from "react-icons/bi";
+import {LuLogOut, LuMenu, LuSearch} from "react-icons/lu";
+import {NavLink} from "react-router";
 import Button from "../../shared/ui/components/Button";
 import Logo from "../../shared/ui/Logo";
-import { useAppSelector } from "../store/hooks/storeHookes";
+import {useAppSelector} from "../store/hooks/storeHookes";
+import {useAuth} from "../../feature/auth/index";
 
 const Navbar = () => {
   const {user} = useAppSelector((s) => s.auth);
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
+
   const navigation = [
     {name: "home", to: "/home"},
     {name: "videos", to: "/videos"},
@@ -90,6 +88,7 @@ const NavLinks = ({
   }[];
   role: "user" | "admin" | undefined;
 }) => {
+  const {logout} = useAuth();
   return (
     <>
       {navigation
@@ -110,7 +109,7 @@ const NavLinks = ({
           </NavLink>
         ))}
 
-      <Button variant="icon" className=" rounded-lg">
+      <Button variant="icon" className=" rounded-lg" onClick={logout}>
         <LuLogOut size={24} />
       </Button>
     </>

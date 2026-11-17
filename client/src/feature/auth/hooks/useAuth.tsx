@@ -3,7 +3,7 @@ import {useNavigate} from "react-router";
 import {toast} from "react-toastify";
 import {useAppDispatch} from "../../../app/store/hooks/storeHookes";
 import {api} from "../../../config/axiosInstance";
-import {setCredentials} from "../state/auth/authSlice";
+import {setCredentials,logout as authLogout} from "../state/auth/authSlice";
 import type {LoginData, RegisterData} from "../types/formTypes";
 
 export const useAuth = () => {
@@ -40,7 +40,20 @@ export const useAuth = () => {
     }
   };
 
+  const logout = async () => {
+    try {
+      const res = await api.post("/auth/logout");
+      console.log(res.data);
+      dispatch(authLogout());
+      navigate("/admin/login");
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data?.message ?? "something went worng");
+      } else {
+        toast.error((error as Error)?.message);
+      }
+    }
+  };
 
- 
-  return {register, login};
+  return {register, login, logout};
 };
