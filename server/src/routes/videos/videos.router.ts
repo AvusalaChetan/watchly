@@ -6,12 +6,16 @@ import {
 import {
   deleteVideo,
   getVideoById,
+  searchVideo,
   updateVideo,
   uploadVideo,
   videoList,
 } from "../../controllers/video/video.controller.js";
 import {uploads} from "../../middleware/upload.middleware.js";
-import {videoUploadValidator} from "../../validator/video/video.validator.js";
+import {
+  searchValidator,
+  videoUploadValidator,
+} from "../../validator/video/video.validator.js";
 
 const router = express.Router();
 
@@ -29,8 +33,10 @@ router.post(
 );
 
 router.get("/", videoList);
+router.get("/search", searchValidator, searchVideo);
 router.get("/:id", getVideoById);
-router.patch("/:id",authenticatedAdmin, updateVideo);
-router.delete("/:id",authenticatedAdmin, deleteVideo);
+
+router.patch("/:id", authenticatedAdmin, updateVideo);
+router.delete("/:id", authenticatedAdmin, deleteVideo);
 
 export default router;

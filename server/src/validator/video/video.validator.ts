@@ -1,7 +1,6 @@
-import {body, validationResult} from "express-validator";
+import type {NextFunction, Request, Response} from "express";
+import {body, query, validationResult} from "express-validator";
 import {GENRES} from "../../models/video.model.js";
-import type {Request, Response, NextFunction} from "express";
-import { error } from "console";
 
 export const videoUploadValidator = [
   body("title")
@@ -34,8 +33,7 @@ export const videoUploadValidator = [
     .withMessage(`genre must be one of: ${GENRES.join(", ")}`),
 
   body("video").custom((_, {req}) => {
-    if (!req.files?.video?.[0])
-       throw new Error("video file is required");
+    if (!req.files?.video?.[0]) throw new Error("video file is required");
     return true;
   }),
 
@@ -47,7 +45,7 @@ export const videoUploadValidator = [
 
   (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
-    console.log(errors)
+    console.log(errors);
     if (!errors.isEmpty()) {
       return res.status(400).json({
         message: "Invalid Request",
@@ -103,4 +101,27 @@ export const videoUpdateValidator = [
   },
 ];
 
- 
+export const searchValidator = [
+  query("search")
+    .notEmpty()
+    .withMessage("there is not search input")
+    .bail()
+    .isString()
+    .withMessage("only string is accepted")
+    .bail(),
+
+  (req: Request, res: Response, next: NextFunction) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        message: "Invalid Request",
+        errors: errors.array().map((e) => ({
+          field: e.type === "field" ? e.path : e.type,
+          message: e.msg,
+        })),
+      });
+    }
+    next();
+  },
+];

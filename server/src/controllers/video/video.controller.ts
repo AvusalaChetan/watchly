@@ -1,8 +1,8 @@
-import type { Request, Response } from "express";
+import type {Request, Response} from "express";
 import videoModel from "../../models/video.model.js";
-import { deleteFromCloudinary } from "../../services/delete.service.js";
-import { uploadToCloudinary } from "../../services/upload.services.js";
-import { tryCatch } from "../../utils/tryCatch.js";
+import {deleteFromCloudinary} from "../../services/delete.service.js";
+import {uploadToCloudinary} from "../../services/upload.services.js";
+import {tryCatch} from "../../utils/tryCatch.js";
 
 const uploadVideo = tryCatch(async (req: Request, res: Response) => {
   const {title, description, genre} = req.body;
@@ -10,15 +10,15 @@ const uploadVideo = tryCatch(async (req: Request, res: Response) => {
 
   const videoFile: Express.Multer.File | undefined = files.video?.[0];
   const thumbnailFile = files.thumbnail?.[0];
-   if (!videoFile || !thumbnailFile) {
+  if (!videoFile || !thumbnailFile) {
     return res.status(400).json({message: "Video and thumbnail are required"});
   }
-  
+
   const [videoRes, thumbRes] = await Promise.all([
     uploadToCloudinary(videoFile.path, "video", "streaming-app/videos"),
     uploadToCloudinary(thumbnailFile.path, "image", "streaming-app/thumbnails"),
   ]);
-  
+
   const video = await videoModel.create({
     title,
     description,
@@ -141,7 +141,6 @@ const deleteVideo = tryCatch(async (req: Request, res: Response) => {
   }
   const video = await videoModel.findById(id);
 
-  
   if (!video) {
     return res.status(404).json({
       message: "video is not found with that id ",
@@ -149,9 +148,8 @@ const deleteVideo = tryCatch(async (req: Request, res: Response) => {
     });
   }
 
-  
-  await deleteFromCloudinary(video?.videoPublicId,'video')
-  await deleteFromCloudinary(video?.thumbnailPublicId,'image')
+  await deleteFromCloudinary(video?.videoPublicId, "video");
+  await deleteFromCloudinary(video?.thumbnailPublicId, "image");
 
   await videoModel.findByIdAndDelete(id);
 
@@ -161,4 +159,36 @@ const deleteVideo = tryCatch(async (req: Request, res: Response) => {
   });
 });
 
-export { deleteVideo, getVideoById, updateVideo, uploadVideo, videoList };
+const searchVideo = tryCatch(async (req: Request, res: Response) => {
+  const {search} = req.query;
+
+  const result = await videoModel.aggregate([
+    {
+      $match: {
+        title: {
+          $regex: search,
+          $options: "i",
+        },
+      },
+    },
+    {
+      $sort: {createdAt: -1},
+    },
+    
+  ]);
+
+  res.status(200).json({
+    message: "successfully searched",
+    success: true,
+    data: {result},
+  });
+});
+
+export {
+  deleteVideo,
+  getVideoById,
+  updateVideo,
+  uploadVideo,
+  videoList,
+  searchVideo,
+};

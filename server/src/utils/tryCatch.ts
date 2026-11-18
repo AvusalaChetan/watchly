@@ -6,6 +6,7 @@ export const tryCatch =
     try {
       await fn(req, res, next);
     } catch (error) {
-      next(error);
+      console.log((error as Error).message)
+      next((error as Error).message);
     }
   };

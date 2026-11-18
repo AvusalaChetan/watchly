@@ -9,4 +9,27 @@ button {
     cursor: pointer;
 }
 
+::-webkit-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(18, 19, 19, 0.6) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+ ::-webkit-scrollbar-track {
+  background: transparent;
+}
+ ::-webkit-scrollbar-thumb {
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  background: rgb(148 163 184 / 0.6);
+  background-clip: padding-box;
+}
+ ::-webkit-scrollbar-thumb:hover {
+  background: rgb(100 116 139 / 0.8);
+  background-clip: padding-box;
+}
+
  

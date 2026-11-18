@@ -2,15 +2,21 @@ import {useState} from "react";
 import {BiLeftArrow} from "react-icons/bi";
 import {LuLogOut, LuMenu, LuSearch} from "react-icons/lu";
 import {NavLink} from "react-router";
+import {useAuth} from "../../feature/auth/index";
+import SearchList from "../../feature/videos/ui/components/SearchList";
 import Button from "../../shared/ui/components/Button";
 import Logo from "../../shared/ui/Logo";
+import {useDebounce} from "../hooks/deBounceHook";
+import {useSearch} from "../hooks/searchHook";
 import {useAppSelector} from "../store/hooks/storeHookes";
-import {useAuth} from "../../feature/auth/index";
 
 const Navbar = () => {
   const {user} = useAppSelector((s) => s.auth);
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
+  const [searchInput, setSearchInput] = useState<string>("");
+  const debounceVal = useDebounce(searchInput, 400);
+  const {data, isLoading, error} = useSearch({debounceVal});
 
   const navigation = [
     {name: "home", to: "/home"},
@@ -21,7 +27,7 @@ const Navbar = () => {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-slate-200 bg-white">
-      <div className="flex h-16 items-center justify-between px-4">
+      <div className="flex h-16 items-center justify-between px-4 relative">
         <div className="flex items-center gap-2">
           <Button
             variant="icon"
@@ -42,6 +48,7 @@ const Navbar = () => {
               type="search"
               placeholder="Search videos"
               className={`${showSearch ? " " : "hidden"} h-full flex-1 bg-transparent text-sm outline-none px-4 `}
+              onChange={(e) => setSearchInput(e.target.value)}
             />
 
             <Button
@@ -73,6 +80,15 @@ const Navbar = () => {
           </Button>
         </div>
       </div>
+      {showSearch && (
+        <div className="absolute top-full left-1/2 z-50 h-fit w-[calc(100%-2rem)] -translate-x-1/2  bg-white shadow-lg lg:w-[80%] ">
+          {isLoading ? (
+            <p className="p-4 text-sm text-slate-500">Loading...</p>
+          ) : (
+            <SearchList result={data?.result} error={error} isLoading={isLoading}/>
+          )}
+        </div>
+      )}
     </header>
   );
 };
