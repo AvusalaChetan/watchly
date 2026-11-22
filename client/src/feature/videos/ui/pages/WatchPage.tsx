@@ -11,13 +11,16 @@ const WatchPage = () => {
 
   if (isLoading) {
     return (
-      <div className="mx-auto w-full max-w-6xl animate-pulse px-4 py-4">
-        <div className="aspect-video w-full rounded-lg bg-(--surface)" />
+      <div className="mx-auto w-full max-w-[90rem] animate-pulse px-4 py-4">
+        <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_20rem]">
+          <div className="aspect-video w-full rounded-xl bg-(--surface)" />
+          <div className="min-h-80 rounded-xl border border-(--border) bg-(--surface)" />
+        </div>
         <div className="mt-4 h-6 w-2/3 rounded bg-(--surface)" />
         <div className="mt-2 h-4 w-1/3 rounded bg-(--surface)" />
       </div>
     );
-  }
+  } 
 
   if (isError || !video) {
     return (
@@ -32,59 +35,72 @@ const WatchPage = () => {
       </div>
     );
   }
-
+ 
   return (
-    <div className="mx-auto w-[80%] p-2  h-full">
-      <div className="mt-4 space-y-3">
-        <h1 className="text-xl font-semibold capitalize md:text-2xl">
-          {video.title}
-        </h1>
-        <div className="flex h-[80%] aspect-video w-full items-center justify-center overflow-hidden rounded-lg bg-black">
+    <div className="mx-auto w-full max-w-[90rem] space-y-4 px-4 py-4">
+      <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_30rem]">
+        <div className="aspect-video w-full overflow-hidden rounded-xl bg-black">
           <video
             src={video.videoUrl}
             poster={video.thumbnailUrl}
             controls
             playsInline
-            className="size-full    "
+            className="size-full"
           />
         </div>
 
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-(--muted)">
-          <span>{formatDuration(video.duration)}</span>
-          <span aria-hidden>-</span>
-          <span>
-            {new Date(video.createdAt).toLocaleDateString(undefined, {
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-            })}
-          </span>
-          <div className="flex flex-wrap gap-2">
-            {video?.genre?.map((g: Genre) => (
-              <span
-                key={g}
-                className="rounded-full border border-(--border) bg-(--surface) px-3 py-0.5 text-xs capitalize text-(--muted)"
-              >
-                {g}
-              </span>
-            ))}
+        <aside
+          aria-label="Chat"
+          className="flex min-h-80 flex-col overflow-hidden rounded-xl border border-(--border) bg-(--surface) lg:min-h-0"
+        >
+          <div className="border-b border-(--border) px-4 py-3">
+            <h2 className="font-semibold text-(--foreground)">Live chat</h2>
           </div>
-        </div>
+          <div className="flex flex-1 items-center justify-center p-4 text-center text-sm text-(--muted)">
+            Chat will appear here
+          </div>
+        </aside>
+      </div>
 
-        <div className="rounded-lg border border-(--border) bg-(--surface) p-3">
-          <p
-            className={`text-sm text-(--foreground) ${expanded ? "" : "line-clamp-3"}`}
-          >
-            {video.description}
-          </p>
-          <button
-            type="button"
-            onClick={() => setExpanded((e) => !e)}
-            className="mt-1 text-sm font-medium text-(--primary) hover:underline"
-          >
-            {expanded ? "Show less" : "Show more"}
-          </button>
+      <h1 className="text-xl font-semibold capitalize md:text-2xl">
+        {video.title}
+      </h1>
+
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-(--muted)">
+        <span>{formatDuration(video.duration)}</span>
+        <span aria-hidden>-</span>
+        <span>
+          {new Date(video.createdAt).toLocaleDateString(undefined, {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })}
+        </span>
+        <div className="flex flex-wrap gap-2">
+          {video?.genre?.map((g: Genre) => (
+            <span
+              key={g}
+              className="rounded-full border border-(--border) bg-(--surface) px-3 py-0.5 text-xs capitalize text-(--muted)"
+            >
+              {g}
+            </span>
+          ))}
         </div>
+      </div>
+
+      <div className="rounded-lg border border-(--border) bg-(--surface) p-3">
+        <p
+          className={`text-sm text-(--foreground) ${expanded ? "" : "line-clamp-3"}`}
+        >
+          {video.description}
+        </p>
+        <button
+          type="button"
+          onClick={() => setExpanded((e) => !e)}
+          className="mt-1 text-sm font-medium text-(--primary) hover:underline"
+        >
+          {expanded ? "Show less" : "Show more"}
+        </button>
       </div>
     </div>
   );

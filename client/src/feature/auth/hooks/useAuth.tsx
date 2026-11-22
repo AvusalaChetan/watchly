@@ -52,8 +52,7 @@ export const useAuth = () => {
       } else {
         toast.error((error as Error)?.message);
       }
-    }
-  };
-
+    }  
+  }; 
   return {register, login, logout};
 };

@@ -126,10 +126,10 @@ console.log(pathname)
       {navigation
         .filter((item) => !item.adminOnly || role === "admin")
         .map((item) => (
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1"               key={item.to}
+>
             <NavLink
-              key={item.to}
-              to={item.to}
+               to={item.to}
               className={({isActive}) =>
                 `link-underline px-4 py-2 text-base font-medium rounded-md transition-colors w-full capitalize ${
                   isActive

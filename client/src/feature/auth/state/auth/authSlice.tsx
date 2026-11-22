@@ -57,10 +57,8 @@ const authSlice = createSlice({
       .addCase(
         refreshAccessToken?.pending,
         (state: WritableNonArrayDraft<AuthState>) => {
-          state.isAuthChecked = true;
-          state.accessToken = null;
-          state.user = null;
-          state.isLoading = false;
+          state.isAuthChecked = false;
+          state.isLoading = true;
         },
       )
       .addCase(
