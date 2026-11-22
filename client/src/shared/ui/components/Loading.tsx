@@ -1,3 +1,6 @@
+import Skeleton from 'react-loading-skeleton'
+ 
+
 const CircleLoading = () => {
   return (
     <div className="flex items-center justify-center">
@@ -5,5 +8,10 @@ const CircleLoading = () => {
     </div>
   );
 };
+
+
+export const PageSkeletonLoader = ()=>{
+  return <Skeleton/>
+}
 
 export default CircleLoading;

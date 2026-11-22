@@ -1,11 +1,7 @@
-import { useEffect } from "react";
-import {
-  createBrowserRouter,
-  Navigate,
-  RouterProvider
-} from "react-router";
+import {useEffect} from "react";
+import {createBrowserRouter, Navigate, RouterProvider} from "react-router";
 import Dashboard from "../../feature/admin/ui/pages/Dashboard";
-import { refreshAccessToken } from "../../feature/auth/state/auth/authAction";
+import {refreshAccessToken} from "../../feature/auth/state/auth/authAction";
 import Login from "../../feature/auth/ui/pages/Login";
 import Register from "../../feature/auth/ui/pages/Register";
 import UpdateVideo from "../../feature/videos/ui/pages/UpdateVideo";
@@ -16,39 +12,45 @@ import HomePage from "../../shared/ui/pages/HomePage";
 import AdminLayout from "../layouts/AdminLayout";
 import AuthLayout from "../layouts/AuthLayout";
 import MainLayout from "../layouts/MainLayout";
-import { useAppDispatch } from "../store/hooks/storeHookes";
+import {useAppDispatch} from "../store/hooks/storeHookes";
 import AdminRoutes from "./AdminRoute";
 import ProtectedRoute from "./ProtectedRoute";
+import PublicRoute from "./PublicRoute";
 
 const Router = () => {
   const dispatch = useAppDispatch();
- 
 
   useEffect(() => {
-  dispatch(refreshAccessToken());
-}, [dispatch]);
+    dispatch(refreshAccessToken());
+  }, [dispatch]);
 
   const routers = createBrowserRouter([
     {
       path: "/auth",
-      element: <AuthLayout />,
+      element: <PublicRoute />,
       children: [
         {
-          path: "register",
-          element: <Register />,
-        },
-        {
-          path: "login",
-          element: <Login />,
+          path:'',
+          element: <AuthLayout />,
+          children: [
+            {
+              path: "register",
+              element: <Register />,
+            },
+            {
+              path: "login",
+              element: <Login />,
+            },
+          ],
         },
       ],
     },
     {
-      path: "",
+      path: "/",
       element: <ProtectedRoute />,
       children: [
         {
-          path: "/",
+          path: "",
           element: <MainLayout />,
           children: [
             {

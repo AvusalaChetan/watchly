@@ -11,3 +11,21 @@ api.interceptors.request.use((config) => {
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
+
+api.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalReq = error.config;
+
+    if (error.response.status === 401 && !originalReq._retry) {
+      originalReq._retry = true;
+      try {
+        await api.get("/auth/refresh-token");
+        return api(originalReq);
+      } catch (error) {
+        window.location.href = "/auth/login";
+        return Promise.reject(error);
+      }
+    }
+  },
+);

@@ -49,12 +49,20 @@ const authSlice = createSlice({
     logout: (state) => {
       state.user = null;
       state.accessToken = null;
-     },
+    },
   },
 
   extraReducers: (builder) => {
     builder
-    
+      .addCase(
+        refreshAccessToken?.pending,
+        (state: WritableNonArrayDraft<AuthState>) => {
+          state.isAuthChecked = true;
+          state.accessToken = null;
+          state.user = null;
+          state.isLoading = false;
+        },
+      )
       .addCase(
         refreshAccessToken?.fulfilled,
         (
@@ -62,8 +70,8 @@ const authSlice = createSlice({
           action: PayloadAction<{user: User; accessToken: string}>,
         ) => {
           state.isAuthChecked = true;
-          state.user = action.payload.user;
-          state.accessToken = action.payload.accessToken;
+          state.user = action.payload?.user;
+          state.accessToken = action.payload?.accessToken;
           state.isLoading = false;
         },
       )
