@@ -29,11 +29,11 @@ const Dashboard = () => {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-xl font-semibold md:text-2xl">Dashboard</h1>
-          <p className="text-sm text-slate-500">Manage your videos</p>
+          <p className="text-sm text-(--muted)">Manage your videos</p>
         </div>
         <Link
           to="/admin/upload"
-          className="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-700"
+          className="inline-flex items-center gap-2 rounded-lg bg-(--primary) px-4 py-2 text-sm font-medium text-white transition hover:bg-(--primary-hover)"
         >
           <LuUpload size={16} />
           Upload video
@@ -42,8 +42,8 @@ const Dashboard = () => {
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         {stats.map(({label, value, icon: Icon}) => (
-          <div key={label} className="rounded-lg border border-slate-200 p-4">
-            <div className="flex items-center justify-between text-slate-500">
+          <div key={label} className="rounded-lg border border-(--border) bg-(--surface) p-4">
+            <div className="flex items-center justify-between text-(--muted)">
               <span className="text-sm">{label}</span>
               <Icon size={18} />
             </div>
@@ -52,8 +52,8 @@ const Dashboard = () => {
         ))}
       </div>
 
-      <section className="rounded-lg border border-slate-200">
-        <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3">
+      <section className="rounded-lg border border-(--border) bg-(--surface)">
+        <div className="flex items-center justify-between border-b border-(--border) px-4 py-3">
           <h2 className="font-semibold">Recent uploads</h2>
           {/* <Link
             to="/admin/videos"
@@ -64,13 +64,13 @@ const Dashboard = () => {
         </div>
 
         {isLoading ? (
-          <p className="p-4 text-sm text-slate-500">Loading...</p>
+          <p className="p-4 text-sm text-(--muted)">Loading...</p>
         ) : recent.length === 0 ? (
-          <p className="p-4 text-sm text-slate-500">
+          <p className="p-4 text-sm text-(--muted)">
             No videos yet. Upload your first one.
           </p>
         ) : (
-          <ul className="divide-y divide-slate-200">
+          <ul className="divide-y divide-(--border)">
             {recent.map((v) => (
               <li
                 key={v._id}
@@ -90,12 +90,12 @@ const Dashboard = () => {
                     <p className="truncate text-sm font-medium capitalize">
                       {v.title}
                     </p>
-                    <p className="truncate text-xs capitalize text-slate-500">
+                    <p className="truncate text-xs capitalize text-(--muted)">
                       {v.genre !== undefined && v.genre.join(" , ")}{" "}
                       <span></span>
                       {formatDuration(v.duration)}
                     </p>
-                    <p className="text-xs text-slate-500">
+                    <p className="text-xs text-(--muted)">
                       {new Date(v.createdAt).toLocaleDateString()}
                     </p>
                   </div>

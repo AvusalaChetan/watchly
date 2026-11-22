@@ -24,7 +24,7 @@ interface VideoFormProps {
 }
 
 const inputClass =
-  "w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-slate-500";
+  "w-full rounded-lg border border-(--border) bg-(--bg) px-3 py-2 text-sm text-(--foreground) outline-none placeholder:text-(--muted) focus:border-(--primary) focus:ring-2 focus:ring-(--primary)";
 
 const VideoForm = ({onSubmit, form, mode}: VideoFormProps) => {
   const {register, handleSubmit, errors, isSubmitting} = form;
@@ -33,7 +33,7 @@ const VideoForm = ({onSubmit, form, mode}: VideoFormProps) => {
    return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-5 rounded-lg border border-slate-200 p-4 md:p-6"
+      className="space-y-5 rounded-lg border border-(--border) bg-(--surface) p-4 md:p-6"
     >
       <Field label="Title" error={errors.title?.message}>
         <input
@@ -65,7 +65,7 @@ const VideoForm = ({onSubmit, form, mode}: VideoFormProps) => {
           {GENRES.map((g: Genre) => (
             <label
               key={g}
-              className="flex cursor-pointer items-center gap-2 rounded-full border border-slate-300 px-3 py-1 text-sm capitalize has-checked:border-slate-900 has-checked:bg-slate-900 has-checked:text-white"
+              className="flex cursor-pointer items-center gap-2 rounded-full border border-(--border) px-3 py-1 text-sm capitalize text-(--muted) transition has-checked:border-(--primary) has-checked:bg-(--primary) has-checked:text-white"
             >
               <input
                 type="checkbox"
@@ -108,7 +108,7 @@ const VideoForm = ({onSubmit, form, mode}: VideoFormProps) => {
           type="submit"
           variant="primary"
           disabled={isSubmitting}
-          className={isSubmitting ? "bg-gray-400" : ""}
+          className={isSubmitting ? "opacity-70" : ""}
         >
           {isSubmitting ? (
             <CircleLoading />

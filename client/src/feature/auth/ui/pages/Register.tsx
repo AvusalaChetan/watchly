@@ -24,13 +24,13 @@ const Register = () => {
   const {register: registerUser} = useAuth();
 
   return (
-    <section className="flex min-h-screen items-center justify-center bg-slate-100 px-4 py-8">
-      <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg">
+    <section className="flex min-h-screen items-center justify-center bg-(--bg) px-4 py-8">
+      <div className="w-full max-w-md rounded-2xl border border-(--border) bg-(--surface) p-8 shadow-lg">
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-slate-900">
+          <h1 className="text-3xl font-bold text-(--foreground)">
             Create an account
           </h1>
-          <p className="mt-2 text-sm text-slate-500">
+          <p className="mt-2 text-sm text-(--muted)">
             Register to get started with Stremmer.
           </p>
         </div>
@@ -41,7 +41,7 @@ const Register = () => {
         >
           <div>
             <label
-              className="mb-1 block text-sm font-medium text-slate-700"
+              className="mb-1 block text-sm font-medium text-(--foreground)"
               htmlFor="username"
             >
               Username
@@ -50,7 +50,7 @@ const Register = () => {
               id="username"
               type="text"
               autoComplete="username"
-              className="w-full rounded-lg border border-slate-300 px-3 py-2.5 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+              className="w-full rounded-lg border border-(--border) bg-(--bg) px-3 py-2.5 text-(--foreground) outline-none transition placeholder:text-(--muted) focus:border-(--primary) focus:ring-2 focus:ring-(--primary)"
               placeholder="Your username"
               {...register("username", {
                 required: "Username is required",
@@ -61,7 +61,7 @@ const Register = () => {
               })}
             />
             {errors.username && (
-              <p className="mt-1 text-sm text-red-600">
+              <p className="mt-1 text-sm text-(--primary)">
                 {errors.username.message}
               </p>
             )}
@@ -69,7 +69,7 @@ const Register = () => {
 
           <div>
             <label
-              className="mb-1 block text-sm font-medium text-slate-700"
+              className="mb-1 block text-sm font-medium text-(--foreground)"
               htmlFor="email"
             >
               Email
@@ -78,7 +78,7 @@ const Register = () => {
               id="email"
               type="email"
               autoComplete="email"
-              className="w-full rounded-lg border border-slate-300 px-3 py-2.5 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+              className="w-full rounded-lg border border-(--border) bg-(--bg) px-3 py-2.5 text-(--foreground) outline-none transition placeholder:text-(--muted) focus:border-(--primary) focus:ring-2 focus:ring-(--primary)"
               placeholder="you@example.com"
               {...register("email", {
                 required: "Email is required",
@@ -89,7 +89,7 @@ const Register = () => {
               })}
             />
             {errors.email && (
-              <p className="mt-1 text-sm text-red-600">
+              <p className="mt-1 text-sm text-(--primary)">
                 {errors.email.message}
               </p>
             )}
@@ -97,7 +97,7 @@ const Register = () => {
 
           <div>
             <label
-              className="mb-1 block text-sm font-medium text-slate-700"
+              className="mb-1 block text-sm font-medium text-(--foreground)"
               htmlFor="password"
             >
               Password
@@ -106,7 +106,7 @@ const Register = () => {
               id="password"
               type="password"
               autoComplete="new-password"
-              className="w-full rounded-lg border border-slate-300 px-3 py-2.5 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+              className="w-full rounded-lg border border-(--border) bg-(--bg) px-3 py-2.5 text-(--foreground) outline-none transition placeholder:text-(--muted) focus:border-(--primary) focus:ring-2 focus:ring-(--primary)"
               placeholder="At least 8 characters"
               {...register("password", {
                 required: "Password is required",
@@ -117,23 +117,23 @@ const Register = () => {
               })}
             />
             {passwordcheck && (
-              <p className="mt-1 text-sm text-red-600">{passwordcheck}</p>
+              <p className="mt-1 text-sm text-(--primary)">{passwordcheck}</p>
             )}
           </div>
 
           <button
             type="submit"
-            className="w-full rounded-lg bg-indigo-600 px-4 py-2.5 font-semibold text-white transition hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-300"
+            className="w-full rounded-lg bg-(--primary) px-4 py-2.5 font-semibold text-white transition hover:bg-(--primary-hover) focus:outline-none focus:ring-2 focus:ring-(--primary)"
             disabled={isSubmitting}
           >
             {isSubmitting?'...':'Register'}
           </button>
         </form>
-        <p className="mt-6 text-center text-sm text-slate-500">
+        <p className="mt-6 text-center text-sm text-(--muted)">
           Already have an account?{" "}
           <Link
             to="/auth/login"
-            className="font-semibold text-indigo-600 hover:text-indigo-700 hover:underline"
+            className="font-semibold text-(--primary) hover:underline"
           >
             Log in
           </Link>

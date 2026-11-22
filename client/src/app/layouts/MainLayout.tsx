@@ -4,9 +4,9 @@ import Navbar from "../components/Navbar";
 
 const MainLayout = () => {
   return (
-    <main className="h-screen w-full  overflow-x-hidden">
+    <main className="min-h-screen w-full overflow-x-hidden bg-(--bg) text-(--foreground)">
       <Navbar />
-      <div className="h-full px-4 ">
+      <div className="min-h-[calc(100vh-4rem)] px-4">
         <Outlet />
       </div>
       <Footer />

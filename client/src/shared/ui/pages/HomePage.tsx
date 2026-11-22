@@ -21,12 +21,12 @@ const HomePage = () => {
   ];
   return (
     <div className="flex flex-col gap-8 pb-8 w-full overflow-x-hidden">
-      <section className="aspect-video max-h-[60vh] w-full bg-slate-200 md:aspect-21/9 mt-4">
+      <section className="mt-4 aspect-video max-h-[60vh] w-full rounded-xl border border-(--border) bg-(--surface) md:aspect-21/9">
         {/* hero / featured video */}
       </section>
 
       <section className="px-4 overflow-x-hidden">
-        <h2 className="mb-4 text-xl font-semibold text-slate-900 md:text-2xl">
+        <h2 className="mb-4 text-xl font-semibold text-(--foreground) md:text-2xl">
           Latest Movies
         </h2>
 

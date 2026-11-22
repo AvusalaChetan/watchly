@@ -2,8 +2,8 @@ import Logo from '../../shared/ui/Logo'
 
 const Header = () => {
   return (
-    <header className='text-center h-8'>
-        <Logo/>
+    <header className="flex h-16 items-center justify-center border-b border-(--border) bg-(--bg) px-4">
+        <Logo />
     </header>
   )
 }

@@ -19,9 +19,9 @@ const VideoCard = ({
   return (
     <Link
       to={`/video/watch/${id}`}
-      className="group block overflow-hidden rounded-lg border border-slate-200 bg-white transition hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
+      className="group block overflow-hidden rounded-lg border border-(--border) bg-(--surface) transition hover:border-(--border-hover) hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--primary)"
     >
-      <div className="relative aspect-video overflow-hidden bg-slate-200">
+      <div className="relative aspect-video overflow-hidden bg-(--bg)">
         <img
           src={thumbnailUrl}
           alt={title}
@@ -34,11 +34,11 @@ const VideoCard = ({
       </div>
 
       <div className="space-y-1 p-2">
-        <h2 className="line-clamp-1 text-sm font-medium capitalize text-slate-900">
+        <h2 className="line-clamp-1 text-sm font-medium capitalize text-(--foreground)">
           {title}
         </h2>
         {genre && genre.length > 0 && (
-          <p className="line-clamp-1 text-xs capitalize text-slate-500 ">
+          <p className="line-clamp-1 text-xs capitalize text-(--muted)">
             <span className="font-bold">GENRES:</span> {genre.join(", ")}
           </p>
         )}

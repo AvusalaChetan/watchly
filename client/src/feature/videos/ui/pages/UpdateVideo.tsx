@@ -52,7 +52,7 @@ const UpdateVideo = () => {
         <h1 className="text-xl font-semibold md:text-2xl capitalize">
           Update video
         </h1>
-        <p className="mb-6 text-sm text-slate-500">edit a video</p>
+        <p className="mb-6 text-sm text-(--muted)">edit a video</p>
       </div>
       <div></div>
 

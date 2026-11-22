@@ -24,7 +24,7 @@ const UploadVideo = () => {
   return (
     <div className="mx-auto w-full max-w-2xl px-4 py-6">
       <h1 className="text-xl font-semibold md:text-2xl">Upload video</h1>
-      <p className="mb-6 text-sm text-slate-500">
+      <p className="mb-6 text-sm text-(--muted)">
         Add a new video to the library
       </p>
 

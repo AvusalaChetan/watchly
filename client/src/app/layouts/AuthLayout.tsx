@@ -4,9 +4,9 @@ import Header from "../components/Header";
 
 const AuthLayout = () => {
   return (
-    <main>
+    <main className="min-h-screen bg-(--bg) text-(--foreground)">
       <Header />
-      <div>
+      <div className="bg-(--bg) text-(--foreground)">
         <Outlet />
       </div>
       <Footer />

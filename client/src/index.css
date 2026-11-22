@@ -1,14 +1,29 @@
 @import "tailwindcss";
 
+:root {
+  --bg: #0a0a0a;
+  --surface: #141414;
+  --border: #262626;
+  --border-hover: #404040;
+  --foreground: #fafafa;
+  --muted: #a3a3a3;
+  /* --primary: #e50914; */
+  --primary: #ef233c;
+  --primary-hover: #c20812;
+}
+
 html,
 body {
   overflow-x: hidden;
 }
 
-button {
-    cursor: pointer;
+body {
+  background: var(--background);
+  color: var(--foreground);
 }
 
+
+ 
 ::-webkit-scrollbar {
   scrollbar-width: thin;
   scrollbar-color: rgba(18, 19, 19, 0.6) transparent;
@@ -18,18 +33,56 @@ button {
   width: 6px;
   height: 6px;
 }
- ::-webkit-scrollbar-track {
+
+::-webkit-scrollbar-track {
   background: transparent;
 }
- ::-webkit-scrollbar-thumb {
+
+::-webkit-scrollbar-thumb {
   border: 1px solid transparent;
   border-radius: 9999px;
   background: rgb(148 163 184 / 0.6);
   background-clip: padding-box;
 }
- ::-webkit-scrollbar-thumb:hover {
+
+::-webkit-scrollbar-thumb:hover {
   background: rgb(100 116 139 / 0.8);
   background-clip: padding-box;
 }
 
- 
+
+button {
+  cursor: pointer;
+}
+
+
+.link-underline::before {
+  content: "";
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.2rem;
+  left: 0.75rem;
+  height: 2px;
+  border-radius: 9999px;
+  background-color: var(--primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 180ms ease;
+  pointer-events: none;
+}
+
+.link-underline {
+  position: relative;
+}
+
+.link-underline:hover::before,
+.link-underline:focus-visible::before,
+.link-underline[aria-current="page"]::before {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link-underline::before {
+    transition: none;
+  }
+}

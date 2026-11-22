@@ -1,9 +1,7 @@
-import {useEffect} from "react";
+import {lazy, Suspense, useEffect} from "react";
 import {createBrowserRouter, Navigate, RouterProvider} from "react-router";
 import Dashboard from "../../feature/admin/ui/pages/Dashboard";
 import {refreshAccessToken} from "../../feature/auth/state/auth/authAction";
-import Login from "../../feature/auth/ui/pages/Login";
-import Register from "../../feature/auth/ui/pages/Register";
 import UpdateVideo from "../../feature/videos/ui/pages/UpdateVideo";
 import UploadVideo from "../../feature/videos/ui/pages/UploadVideo";
 import VideoListPage from "../../feature/videos/ui/pages/VideoListPage";
@@ -16,6 +14,10 @@ import {useAppDispatch} from "../store/hooks/storeHookes";
 import AdminRoutes from "./AdminRoute";
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
+import {AuthPageLoader} from "../../shared/ui/components/Loading";
+
+const Register = lazy(() => import("../../feature/auth/ui/pages/Register"));
+const Login = lazy(() => import("../../feature/auth/ui/pages/Login"));
 
 const Router = () => {
   const dispatch = useAppDispatch();
@@ -30,16 +32,24 @@ const Router = () => {
       element: <PublicRoute />,
       children: [
         {
-          path:'',
+          path: "",
           element: <AuthLayout />,
           children: [
             {
               path: "register",
-              element: <Register />,
+              element: (
+                <Suspense fallback={<AuthPageLoader />}>
+                  <Register />
+                </Suspense>
+              ),
             },
             {
               path: "login",
-              element: <Login />,
+              element: (
+                <Suspense fallback={<AuthPageLoader />}>
+                  <Login />
+                </Suspense>
+              ),
             },
           ],
         },

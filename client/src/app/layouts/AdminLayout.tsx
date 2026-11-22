@@ -5,14 +5,14 @@ import Navbar from "../components/Navbar";
 const AdminLayout = () => {
   
   return (
-    <div className="flex min-h-screen flex-col bg-white text-slate-900">
+    <div className="flex min-h-screen flex-col bg-(--bg) text-(--foreground)">
       <Navbar />
 
       <main className="flex-1">
         <Outlet />
       </main>
 
-      <footer className="border-t border-slate-200 py-4 text-center text-sm text-slate-500 flex items-center justify-center gap-2">
+      <footer className="flex items-center justify-center gap-2 border-t border-(--border) py-4 text-center text-sm text-(--muted)">
         <LuCopyright /> {new Date().getFullYear()} Watchly
       </footer>
     </div>
