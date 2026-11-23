@@ -1,13 +1,14 @@
 import multer from "multer";
-import path from "path";
 
-const storage = multer.diskStorage({
-  destination: "uploads/",
-  filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname);
-    cb(null, `${crypto.randomUUID()}${ext}`);
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: "uploads/",
+//   filename: (req, file, cb) => {
+//     const ext = path.extname(file.originalname);
+//     cb(null, `${crypto.randomUUID()}${ext}`);
+//   },
+// });
+
+const storage = multer.memoryStorage();
 
 const allowedTypes = ["image/jpeg", "image/png", "video/mp4"];
 export const uploads = multer({

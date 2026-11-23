@@ -15,19 +15,23 @@ const uploadVideo = tryCatch(async (req: Request, res: Response) => {
   }
 
   const [videoRes, thumbRes] = await Promise.all([
-    uploadToCloudinary(videoFile.path, "video", "streaming-app/videos"),
-    uploadToCloudinary(thumbnailFile.path, "image", "streaming-app/thumbnails"),
+    uploadToCloudinary(videoFile.buffer, "video", "streaming-app/videos"),
+    uploadToCloudinary(
+      thumbnailFile.buffer,
+      "image",
+      "streaming-app/thumbnails",
+    ),
   ]);
 
   const video = await videoModel.create({
     title,
     description,
     genre,
-    videoUrl: videoRes?.secure_url,
-    thumbnailUrl: thumbRes?.secure_url,
+    videoUrl: videoRes.secure_url,
+    thumbnailUrl: thumbRes.secure_url,
     duration: Math.round(videoRes.duration),
-    thumbnailPublicId: thumbRes?.public_id,
-    videoPublicId: videoRes?.public_id,
+    thumbnailPublicId: thumbRes.public_id,
+    videoPublicId: videoRes.public_id,
   });
 
   res.status(201).json({
@@ -174,7 +178,6 @@ const searchVideo = tryCatch(async (req: Request, res: Response) => {
     {
       $sort: {createdAt: -1},
     },
-    
   ]);
 
   res.status(200).json({

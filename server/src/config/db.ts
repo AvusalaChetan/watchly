@@ -1,6 +1,5 @@
-import videoModel from "../models/video.model.js";
-import {config} from "./config.js";
 import mongoose from "mongoose";
+import { config } from "./config.js";
 
 export async function connectDB() {
   try {
@@ -8,5 +7,6 @@ export async function connectDB() {
      console.log("MongoDB connected");
   } catch (error) {
     console.log((error as Error).message);
+    throw error
   }
 }
