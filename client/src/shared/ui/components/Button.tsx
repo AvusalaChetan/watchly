@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import type { ButtonHTMLAttributes } from "react";
+import { memo, type ButtonHTMLAttributes } from "react";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: "icon" | "avatar" | "primary";
@@ -34,4 +34,4 @@ const Button = ({
   );
 };
 
-export default Button;
+export default memo(Button);

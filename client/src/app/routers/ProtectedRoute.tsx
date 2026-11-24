@@ -4,7 +4,7 @@ import {useAppSelector} from "../store/hooks/storeHookes";
 const ProtectedRoute = () => {
   const {user, accessToken, isLoading} = useAppSelector((state) => state.auth);
   const location = useLocation();
-  console.log(isLoading)
+ 
   if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center">

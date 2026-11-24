@@ -10,7 +10,7 @@ import {Link, useNavigate} from "react-router";
 import Button from "../../../../shared/ui/components/Button";
 import {formatDuration} from "../../../../shared/utils/formatDuration";
 import {useDeleteVideo, useVideos} from "../../../videos/index";
-import CircleLoading from "../../../../shared/ui/components/Loading";
+import CircleLoading from "../../../../shared/ui/components/Loaders";
 
 const stats = [
   {label: "Total videos", value: "41", icon: LuFilm},
@@ -22,7 +22,7 @@ const Dashboard = () => {
   const {videos, isLoading} = useVideos();
   const {deleteVideo, deletingVideoId} = useDeleteVideo();
   const recent = videos.slice(0, 10);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <div className="mx-auto w-full max-w-6xl space-y-6 px-4 py-6">
@@ -42,7 +42,10 @@ const Dashboard = () => {
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         {stats.map(({label, value, icon: Icon}) => (
-          <div key={label} className="rounded-lg border border-(--border) bg-(--surface) p-4">
+          <div
+            key={label}
+            className="rounded-lg border border-(--border) bg-(--surface) p-4"
+          >
             <div className="flex items-center justify-between text-(--muted)">
               <span className="text-sm">{label}</span>
               <Icon size={18} />
@@ -101,8 +104,10 @@ const Dashboard = () => {
                   </div>
                 </Link>
                 <div className="flex shrink-0 gap-1">
-                  <Button variant="icon" aria-label={`Edit ${v.title}`}
-                  onClick={()=> navigate(`/admin/update/${v._id}`) }
+                  <Button
+                    variant="icon"
+                    aria-label={`Edit ${v.title}`}
+                    onClick={() => navigate(`/admin/update/${v._id}`)}
                   >
                     <LuPencil size={18} />
                   </Button>

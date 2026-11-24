@@ -1,5 +1,4 @@
-import Skeleton from 'react-loading-skeleton'
- 
+import Skeleton from "react-loading-skeleton";
 
 const CircleLoading = () => {
   return (
@@ -9,12 +8,11 @@ const CircleLoading = () => {
   );
 };
 
+export const PageLoader = () => {
+  return <Skeleton baseColor="var(--surface)" highlightColor="var(--border)" />;
+};
 
-export const PageLoader = ()=>{
-  return <Skeleton baseColor="var(--surface)" highlightColor="var(--border)" />
-}
-
-export const AuthPageLoader = ()=>{
+export const AuthPageLoader = () => {
   return (
     <section
       className="flex min-h-screen items-center justify-center bg-(--bg) px-4 py-8"
@@ -83,8 +81,20 @@ export const AuthPageLoader = ()=>{
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-
+export const DotLoader = () => {
+  return (
+    <div
+      className="flex items-center justify-center gap-1.5"
+      role="status"
+      aria-label="Loading"
+    >
+      <span className="h-2 w-2 animate-bounce rounded-full bg-(--primary)" />
+      <span className="h-2 w-2 animate-bounce rounded-full bg-(--primary) [animation-delay:-0.16s]" />
+      <span className="h-2 w-2 animate-bounce rounded-full bg-(--primary) [animation-delay:-0.32s]" />
+    </div>
+  );
+};
 export default CircleLoading;

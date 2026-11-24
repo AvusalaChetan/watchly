@@ -1,14 +1,14 @@
-import {useState} from "react";
-import {BiLeftArrow} from "react-icons/bi";
-import {LuLogOut, LuMenu, LuSearch} from "react-icons/lu";
-import {NavLink, useLocation} from "react-router";
-import {useAuth} from "../../feature/auth/index";
+import { useState } from "react";
+import { BiLeftArrow } from "react-icons/bi";
+import { LuLogOut, LuMenu, LuSearch } from "react-icons/lu";
+import { NavLink } from "react-router";
+import { useAuth } from "../../feature/auth/index";
 import SearchList from "../../feature/videos/ui/components/SearchList";
 import Button from "../../shared/ui/components/Button";
 import Logo from "../../shared/ui/Logo";
-import {useDebounce} from "../hooks/deBounceHook";
-import {useSearch} from "../hooks/searchHook";
-import {useAppSelector} from "../store/hooks/storeHookes";
+import { useDebounce } from "../hooks/deBounceHook";
+import { useSearch } from "../hooks/searchHook";
+import { useAppSelector } from "../store/hooks/storeHookes";
 
 const Navbar = () => {
   const {user} = useAppSelector((s) => s.auth);
@@ -119,14 +119,14 @@ const NavLinks = ({
   }[];
   role: "user" | "admin" | undefined;
 }) => {
-const {pathname} = useLocation()
-console.log(pathname)
-   return (
+// const {pathname} = useLocation()
+
+return (
     <>
       {navigation
         .filter((item) => !item.adminOnly || role === "admin")
         .map((item) => (
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1" key={item.name}>
             <NavLink
               key={item.to}
               to={item.to}
