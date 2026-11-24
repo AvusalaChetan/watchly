@@ -1,5 +1,4 @@
-import Skeleton from 'react-loading-skeleton'
- 
+import Skeleton from "react-loading-skeleton";
 
 const CircleLoading = () => {
   return (
@@ -9,12 +8,11 @@ const CircleLoading = () => {
   );
 };
 
+export const PageLoader = () => {
+  return <Skeleton baseColor="var(--surface)" highlightColor="var(--border)" />;
+};
 
-export const PageLoader = ()=>{
-  return <Skeleton baseColor="var(--surface)" highlightColor="var(--border)" />
-}
-
-export const AuthPageLoader = ()=>{
+export const AuthPageLoader = () => {
   return (
     <section
       className="flex min-h-screen items-center justify-center bg-(--bg) px-4 py-8"
@@ -83,8 +81,11 @@ export const AuthPageLoader = ()=>{
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
+export const VideoLoader = () => {
+  return <Skeleton></Skeleton>;
+};
 
 export default CircleLoading;

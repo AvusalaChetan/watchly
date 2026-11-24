@@ -3,6 +3,7 @@ import {Link, useParams} from "react-router";
 import {formatDuration} from "../../../../shared/utils/formatDuration";
 import {useVideo} from "../../hooks/videoHook";
 import type {Genre} from "../../types/video.types";
+import {ChatBox} from "../../../chat";
 
 const WatchPage = () => {
   const {id: videoId} = useParams();
@@ -11,7 +12,7 @@ const WatchPage = () => {
 
   if (isLoading) {
     return (
-      <div className="mx-auto w-full max-w-[90rem] animate-pulse px-4 py-4">
+      <div className="mx-auto w-full max-w-360 animate-pulse px-4 py-4">
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_20rem]">
           <div className="aspect-video w-full rounded-xl bg-(--surface)" />
           <div className="min-h-80 rounded-xl border border-(--border) bg-(--surface)" />
@@ -20,7 +21,7 @@ const WatchPage = () => {
         <div className="mt-2 h-4 w-1/3 rounded bg-(--surface)" />
       </div>
     );
-  } 
+  }
 
   if (isError || !video) {
     return (
@@ -29,17 +30,21 @@ const WatchPage = () => {
         <p className="text-sm text-(--muted)">
           It may have been removed, or the link is wrong.
         </p>
-        <Link to="/home" className="text-sm font-medium text-(--primary) underline">
+        <Link
+          to="/home"
+          className="text-sm font-medium text-(--primary) underline"
+        >
           Back to home
         </Link>
       </div>
     );
   }
- 
+
   return (
-    <div className="mx-auto w-full max-w-[90rem] space-y-4 px-4 py-4">
+    <div className="mx-auto w-full max-w-360 space-y-4 px-4 py-4">
+      
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_30rem]">
-        <div className="aspect-video w-full overflow-hidden rounded-xl bg-black">
+        <div className="aspect-video w-full overflow-hidden rounded-xl bg-(--bg) border border-(--border) ">
           <video
             src={video.videoUrl}
             poster={video.thumbnailUrl}
@@ -49,17 +54,7 @@ const WatchPage = () => {
           />
         </div>
 
-        <aside
-          aria-label="Chat"
-          className="flex min-h-80 flex-col overflow-hidden rounded-xl border border-(--border) bg-(--surface) lg:min-h-0"
-        >
-          <div className="border-b border-(--border) px-4 py-3">
-            <h2 className="font-semibold text-(--foreground)">Live chat</h2>
-          </div>
-          <div className="flex flex-1 items-center justify-center p-4 text-center text-sm text-(--muted)">
-            Chat will appear here
-          </div>
-        </aside>
+        <ChatBox />
       </div>
 
       <h1 className="text-xl font-semibold capitalize md:text-2xl">

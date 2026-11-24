@@ -1,6 +1,5 @@
-import Skeleton from "react-loading-skeleton";
-import {Navigate, Outlet, useLocation} from "react-router";
-import {useAppSelector} from "../store/hooks/storeHookes";
+import { Navigate, Outlet, useLocation } from "react-router";
+import { useAppSelector } from "../store/hooks/storeHookes";
 
 const ProtectedRoute = () => {
   const {user, accessToken, isLoading} = useAppSelector(
@@ -9,7 +8,7 @@ const ProtectedRoute = () => {
   const location = useLocation();
 
   if (isLoading) {
-    return <Skeleton />;
+    return <p>loading....</p>;
   }
 
   if (!user || !accessToken) {

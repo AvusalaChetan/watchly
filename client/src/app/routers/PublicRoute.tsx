@@ -1,19 +1,21 @@
-import {Navigate, Outlet, useLocation} from "react-router";
-import {useAppSelector} from "../store/hooks/storeHookes";
+
+import { Navigate, Outlet } from "react-router";
+import { useAppSelector } from "../store/hooks/storeHookes";
 
 const PublicRoute = () => {
-  const {user, accessToken, isLoading} = useAppSelector((state) => state.auth);
-  const location = useLocation();
+  const { user, accessToken, isLoading } = useAppSelector(
+    (state) => state.auth
+  );
 
   if (isLoading) {
-    return <p> loading...</p>;
+    return <p>Loading...</p>;
   }
 
   if (user && accessToken) {
     return user.role === "admin" ? (
-      <Navigate to={location.pathname || "/admin"} replace />
+      <Navigate to="/admin" replace />
     ) : (
-      <Navigate to={location.pathname || "/home"} replace />
+      <Navigate to="/home" replace />
     );
   }
 
