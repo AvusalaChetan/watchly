@@ -10,4 +10,7 @@ export type {
   Genre,
   VideoListResponse,
   FormDataTypes,
+  GENRES,
 } from "./types/video.types";
+
+export {default as VideoCard} from "./ui/components/VideoCard";

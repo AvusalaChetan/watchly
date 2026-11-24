@@ -4,18 +4,16 @@ import {isAxiosError} from "axios";
 
 export const refreshAccessToken = createAsyncThunk(
   "auth/refreshToken ",
-  async () => {
+  async (_, {rejectWithValue}) => {
     try {
       const res = await api.post("/auth/refresh-token");
-      const data = res?.data?.data
-     
+      const data = res?.data?.data;
+
       return data;
     } catch (error) {
-      if (isAxiosError(error)) {
-        console.log(error.response);
-      }else{
-        console.log(error)
-      }
+      return rejectWithValue(
+        isAxiosError(error) ? error.response?.data : "Refresh failed",
+      );
     }
   },
 );

@@ -1,10 +1,8 @@
-import { Navigate, Outlet, useLocation } from "react-router";
-import { useAppSelector } from "../store/hooks/storeHookes";
+import {Navigate, Outlet, useLocation} from "react-router";
+import {useAppSelector} from "../store/hooks/storeHookes";
 
 const ProtectedRoute = () => {
-  const {user, accessToken, isLoading} = useAppSelector(
-    (state) => state.auth,
-  );
+  const {user, accessToken, isLoading} = useAppSelector((state) => state.auth);
   const location = useLocation();
 
   if (isLoading) {

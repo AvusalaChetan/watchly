@@ -81,11 +81,8 @@ export const AuthPageLoader = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export const VideoLoader = () => {
-  return <Skeleton></Skeleton>;
-};
 
 export default CircleLoading;

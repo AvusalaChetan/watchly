@@ -1,4 +1,4 @@
-export const GENRES = [
+const GENRES = [
   "action",
   "comedy",
   "drama",
@@ -7,9 +7,12 @@ export const GENRES = [
   "thriller",
   "sci-fi",
   "documentary"
-] as const;
+] ;
 
-export type Genre = (typeof GENRES)[number];
+ type Genre = (typeof GENRES)[number];
+
+export {GENRES};
+export type {Genre};
 
 export type Video = {
   _id: string;

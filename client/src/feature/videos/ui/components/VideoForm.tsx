@@ -5,12 +5,12 @@ import type {
   UseFormRegister,
 } from "react-hook-form";
 import Button from "../../../../shared/ui/components/Button";
-import { GENRES, type Genre } from "../../types/video.types";
+import {GENRES, type Genre} from "../../types/video.types";
 import Field from "./Field";
 
-import type { FormDataTypes } from "../../types/video.types";
-import { memo } from "react";
-import CircleLoading from "../../../../shared/ui/components/Loading";
+import type {FormDataTypes} from "../../types/video.types";
+import {memo} from "react";
+import CircleLoading from "../../../../shared/ui/components/Loaders";
 
 interface VideoFormProps {
   onSubmit: SubmitHandler<FormDataTypes>;
@@ -29,8 +29,7 @@ const inputClass =
 const VideoForm = ({onSubmit, form, mode}: VideoFormProps) => {
   const {register, handleSubmit, errors, isSubmitting} = form;
 
-
-   return (
+  return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="space-y-5 rounded-lg border border-(--border) bg-(--surface) p-4 md:p-6"
