@@ -6,7 +6,7 @@ const server = app.listen(8080);
 let dbPromise: Promise<void> | null = null;
 
 export default {
-  async fetch(request: Request, env: unknown, ctx: ExecutionContext) {
+  async fetch(request: Request) {
     dbPromise ??= connectDB().catch((e) => {
       dbPromise = null;
       throw e;
