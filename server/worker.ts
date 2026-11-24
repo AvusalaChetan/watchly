@@ -1,7 +1,6 @@
-import {handleAsNodeRequest} from "cloudflare:node";
+import { handleAsNodeRequest } from "cloudflare:node";
 import app from "./src/app/app.js";
-import {config} from "./src/config/config.js";
-import {connectDB} from "./src/config/db.js";
+import { connectDB } from "./src/config/db.js";
 
 const server = app.listen(8080);
 let dbPromise: Promise<void> | null = null;
