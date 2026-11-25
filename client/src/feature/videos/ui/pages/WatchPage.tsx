@@ -3,7 +3,7 @@ import {Link, useParams} from "react-router";
 import {formatDuration} from "../../../../shared/utils/formatDuration";
 import {useVideo} from "../../hooks/videoHook";
 import type {Genre} from "../../types/video.types";
-import {ChatBox} from "../../../chat";
+import {ChatBox} from "../../../watch-together";
 
 const WatchPage = () => {
   const {id: videoId} = useParams();
