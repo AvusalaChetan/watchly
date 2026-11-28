@@ -126,7 +126,7 @@ return (
       {navigation
         .filter((item) => !item.adminOnly || role === "admin")
         .map((item) => (
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1" key={item.name}>
             <NavLink
                to={item.to}
               className={({isActive}) =>

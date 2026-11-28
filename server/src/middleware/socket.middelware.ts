@@ -1,18 +1,18 @@
-import {readAccessToken} from "../utils/auth.utils.js";
-import type {ExtendedError, Socket} from "socket.io";
+import type { ExtendedError, Socket } from "socket.io";
+import userModel from "../models/user.model.js";
 import type {
   ClientToServerEvents,
   InterServerEvents,
-  ServerToClientEvents,
-  SocketData,
+  ServerToClientEvents
 } from "../types/types.js";
+import { readAccessToken } from "../utils/auth.utils.js";
 
-export const socketAuthenticated = (
+export const socketAuthenticated = async (
   socket: Socket<
     ClientToServerEvents,
     ServerToClientEvents,
-    InterServerEvents,
-    SocketData
+    InterServerEvents
+ 
   >,
   next: (error?: ExtendedError) => void,
 ) => {
@@ -22,12 +22,16 @@ export const socketAuthenticated = (
       socket.handshake.headers?.authorization?.split(" ")[1];
 
     const {userId, role} = readAccessToken(token);
-    socket.data.user = {userId, role};
+    const user = await userModel.findById(userId);
+    if (!user) return;
+    socket.data.user = user
 
     next();
   } catch (error) {
     next(
-      error instanceof Error ? error : new Error("Socket authentication failed"),
+      error instanceof Error
+        ? error
+        : new Error("Socket authentication failed"),
     );
   }
 };

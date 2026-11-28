@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { LuPlay } from "react-icons/lu";
+import { memo } from "react";
 
 const Logo = () => {
   return (
@@ -14,4 +15,4 @@ const Logo = () => {
   );
 };
 
-export default Logo;
+export default memo(Logo);

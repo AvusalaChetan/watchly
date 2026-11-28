@@ -5,6 +5,7 @@ import {useAppSelector} from "../../../app/store/hooks/storeHookes";
 export const useSocket = () => {
   const [socket, setSocket] = useState<Socket | null>(null);
   const {accessToken} = useAppSelector((s) => s.auth);
+  const [roomId, setRoomId] = useState<string | null>(null);
 
   useEffect(() => {
     const socket = io(import.meta.env.VITE_SOCKET_URL, {
@@ -20,5 +21,5 @@ export const useSocket = () => {
     };
   }, [accessToken]);
 
-  return {socket};
+  return {socket, roomId, setRoomId};
 };

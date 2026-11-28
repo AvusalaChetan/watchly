@@ -1,14 +1,28 @@
-import {useEffect, type JSX} from "react";
-import {useSocket} from "../../hooks/useSocket";
+import {useEffect, useState, type JSX} from "react";
 import Button from "../../../../shared/ui/components/Button";
+import {useSocket} from "../../hooks/useSocket";
 
 const ChatBox = (): JSX.Element => {
-  const {socket} = useSocket();
+  const {socket, roomId, setRoomId} = useSocket();
+  const [copied, setCopied] = useState(false);
+  const [join, setJoin] = useState(false);
+  const handileCreateRoom = () => {
+    socket?.emit("room:create");
+  };
 
   useEffect(() => {
-    socket?.emit("message", "hiii");
-  }, [socket]);
+    socket?.on("room:created", ({roomId}) => {
+      setRoomId(roomId);
+      console.log(roomId);
+    });
+  }, [socket, setRoomId]);
 
+  const handleCopy = async () => {
+    if (!roomId) return;
+    await navigator.clipboard.writeText(roomId);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  };
   return (
     <>
       <aside
@@ -16,20 +30,47 @@ const ChatBox = (): JSX.Element => {
         className="flex min-h-80 flex-col overflow-hidden rounded-xl border border-(--border) bg-(--surface) lg:min-h-0"
       >
         <div className="border-b border-(--border) px-4 py-3 flex items-center  justify-between ">
-          <h2 className="font-semibold text-(--foreground)">Live chat</h2>
+          {roomId && (
+            <h2 className="font-semibold text-(--foreground)">Live chat</h2>
+          )}
           <div className="flex gap-4">
-            <Button className="rounded-xs"
-            
-            >Watch-Together</Button>
-            <Button className="bg-green-500 capitalize rounded-sm ">
-              join
+            <Button className="rounded-xs" onClick={handileCreateRoom}>
+              Watch-Together
             </Button>
+            {!roomId && (
+              <Button
+                className="bg-green-500 capitalize rounded-sm "
+                onClick={() => setJoin(true)}
+              >
+                join
+              </Button>
+            )}
           </div>
         </div>
-        <div className="flex flex-1 items-center justify-center p-4 text-center text-sm text-(--muted)">
-          Chat will appear here
+        <div>
+          <div>
+            {roomId && (
+              <div style={{display: "flex", alignItems: "center", gap: 8}}>
+                <span>{roomId}</span>
+                <button onClick={handleCopy}>
+                  {copied ? "Copied" : "Copy"}
+                </button>
+              </div>
+            )}
+          </div>
+          <div>
+            {join && (
+              <div className="w-full h-full flex items-center justify-center gap-1">
+                <input
+                  type="text"
+                  className="border"
+                  placeholder="enter join code"
+                />
+                <Button> send join request</Button>
+              </div>
+            )}
+          </div>
         </div>
-        
       </aside>
     </>
   );
